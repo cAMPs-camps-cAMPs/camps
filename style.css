@@ -1,0 +1,311 @@
+/* ============================================================
+   色はここでまとめて管理（変数）。色を変えたいときはここだけ直す
+   ============================================================ */
+:root {
+  --bg: #121110;        /* 背景（黒） */
+  --card: #1d1b18;      /* カードの背景 */
+  --card-hover: #26231f;
+  --line: #34302a;      /* 線・枠 */
+  --cream: #f1e6c8;     /* イメージカラー（クリーム） */
+  --text: #f6f1e4;      /* 本文の文字 */
+  --muted: #a39b8a;     /* 薄い文字 */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+a { color: inherit; }
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.site-header nav a {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-header nav a:hover { color: var(--text); }
+
+.site-header nav a.current {
+  color: var(--cream);
+  border-bottom-color: var(--cream);
+}
+
+/* ---------- 見出し ---------- */
+.page-title {
+  margin: 48px 0 32px;
+  font-size: 2.2rem;
+  letter-spacing: 0.08em;
+  color: var(--cream);
+}
+
+.page-title span {
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.group-title {
+  margin: 40px 0 16px;
+  font-size: 1.1rem;
+  padding-left: 12px;
+  border-left: 4px solid var(--cream);
+}
+
+/* ---------- トップページ ---------- */
+.hero {
+  text-align: center;
+  padding: 90px 0 70px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 6rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+}
+
+.hero p { color: var(--muted); }
+
+.block { margin-top: 56px; }
+
+.block-title {
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: var(--cream);
+}
+
+.mini-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.mini-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 96px;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.mini-member:hover { color: var(--cream); }
+
+.more { margin-top: 24px; }
+.more a { color: var(--cream); }
+
+/* ---------- カード共通 ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+}
+
+a.card { text-decoration: none; }
+
+a.card:hover {
+  transform: translateY(-4px);
+  background: var(--card-hover);
+  border-color: var(--cream);
+}
+
+.member-card { text-align: center; }
+.member-card h2 { margin: 12px 0 0; font-size: 1.2rem; }
+
+.role {
+  display: inline-block;
+  margin: 6px 0 0;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  color: var(--bg);
+  background: var(--cream);
+  border-radius: 999px;
+}
+
+.comment { color: var(--muted); margin: 8px 0 0; }
+
+.empty { color: var(--muted); }
+
+/* ---------- アイコン（画像が無いときは頭文字を表示） ---------- */
+.icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--bg);
+  font-weight: 800;
+}
+
+.icon::before { content: attr(data-initial); }
+
+.icon img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icon-s { width: 32px; height: 32px; font-size: 0.9rem; }
+.icon-m { width: 110px; height: 110px; font-size: 2.6rem; }
+.icon-l { width: 160px; height: 160px; font-size: 4rem; }
+.mini-member .icon-s { width: 64px; height: 64px; font-size: 1.6rem; }
+
+/* ---------- 個人ページ ---------- */
+.profile { margin-top: 48px; }
+
+.profile-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-head h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  color: var(--cream);
+}
+
+.profile-section h2 {
+  font-size: 1rem;
+  margin: 32px 0 12px;
+  padding-left: 12px;
+  border-left: 4px solid var(--cream);
+}
+
+.tags, .link-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tags li {
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+}
+
+.link-buttons a {
+  display: inline-block;
+  padding: 6px 18px;
+  border: 1px solid var(--cream);
+  border-radius: 999px;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.link-buttons a:hover { background: var(--cream); color: var(--bg); }
+
+/* ---------- ゲーム一覧 ---------- */
+.game-card h3 { margin: 0; font-size: 1.1rem; }
+
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.store-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--cream);
+  font-size: 0.9rem;
+}
+
+/* ---------- リンク集 ---------- */
+.link-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-item > a {
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.by .icon-s { width: 22px; height: 22px; font-size: 0.7rem; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  text-align: center;
+  padding: 32px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.site-footer::before { content: "© "; }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 検索エンジンに載せないための設定 -->
+  <meta name="robots" content="noindex, nofollow">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="top">
+  <header class="site-header">
+    <a class="logo site-name" href="index.html"></a>
+    <nav>
+      <a href="index.html" class="current">トップ</a>
+      <a href="members.html">メンバー</a>
+      <a href="games.html">ゲーム</a>
+      <a href="links.html">リンク集</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="site-name"></h1>
+      <p class="site-catchcopy"></p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title">ABOUT</h2>
+      <div id="site-about"></div>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title">MEMBERS</h2>
+      <div id="top-members" class="mini-members"></div>
+      <p class="more"><a href="members.html">メンバー紹介を見る →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span class="site-name"></span></footer>
+
+  <!-- data.js（中身）→ script.js（表示）の順に読み込む -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

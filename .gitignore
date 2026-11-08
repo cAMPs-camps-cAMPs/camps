@@ -1,0 +1,6 @@
+# Gitで管理しない（GitHubに上げない）ファイルの一覧
+# 確認用サーバーなど、作業用の設定
+.claude/
+# Windowsが自動で作るファイル
+Thumbs.db
+desktop.ini
