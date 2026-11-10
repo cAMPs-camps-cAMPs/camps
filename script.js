@@ -86,6 +86,11 @@ function renderTop() {
 
 // ---------- メンバー一覧 ----------
 function renderMembers() {
+  // 見出し「MEMBERS」を、カードの並び順どおりのメンバーカラーのグラデーションにする
+  const colors = MEMBERS.map((m) => m.color).filter(Boolean);
+  const title = document.querySelector(".page-title strong");
+  if (title && colors.length > 1) title.style.backgroundImage =`linear-gradient(90deg, ${colors.join(", ")})`;
+
   document.getElementById("member-list").innerHTML = MEMBERS.map(
     (m) => `<a class="member-card" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
               ${portraitHtml(m)}
