@@ -8,6 +8,7 @@
   <title></title>
   <link rel="icon" href="images/logo.webp">
   <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
 </head>
 <body data-page="top">
   <header class="site-header">
@@ -22,7 +23,12 @@
 
   <main>
     <section class="hero">
-      <h1><img class="hero-logo" src="images/logo.webp" alt="cAMPs"></h1>
+      <!-- ロゴの左半分（太陽側）を押すとライト、右半分（月側）を押すとダーク -->
+      <div class="hero-logo-wrap">
+        <h1><img class="hero-logo" src="images/logo.webp" alt="cAMPs"></h1>
+        <button type="button" class="theme-half theme-day" data-theme-set="light" aria-label="ライトモードにする" title="昼（ライトモード）"></button>
+        <button type="button" class="theme-half theme-night" data-theme-set="dark" aria-label="ダークモードにする" title="夜（ダークモード）"></button>
+      </div>
       <p class="site-catchcopy"></p>
     </section>
 

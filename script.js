@@ -74,6 +74,11 @@ function emptyHtml(message) {
 
 // ---------- トップページ ----------
 function renderTop() {
+  // ロゴの左半分 → ライト、右半分 → ダーク
+  document.querySelectorAll("[data-theme-set]").forEach((btn) =>
+    btn.addEventListener("click", () => setTheme(btn.dataset.themeSet))
+  );
+
   document.getElementById("site-about").innerHTML =
     SITE.about.map((line) => `<p>${esc(line)}</p>`).join("");
 
