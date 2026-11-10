@@ -543,6 +543,8 @@ main {
 
 /* ---------- リンク集：スポーツ成績 ---------- */
 .sport-updated { margin: -8px 0 16px; font-size: 0.85rem; color: var(--muted); }
+.sport-group-title { margin: 24px 0 12px; font-size: 1rem; color: var(--muted); letter-spacing: 0.1em; }
+.sport-group-title:first-of-type { margin-top: 8px; }
 .sport-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

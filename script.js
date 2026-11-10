@@ -206,7 +206,7 @@ function gameCardHtml(g) {
 function sportsHtml() {
   if (typeof SPORTS === "undefined" || !SPORTS.teams.length) return "";
   const formLabel = { W: "勝", D: "分", L: "敗" };
-  const cards = SPORTS.teams
+  const cardHtml = (list) => list
     .map(
       (t) => `<li class="card sport-card" style="--team-color:${esc(t.color || "var(--accent)")}">
         <p class="sport-league">${esc(t.league)}<span>${esc(t.season)}</span></p>
@@ -224,9 +224,19 @@ function sportsHtml() {
       </li>`
     )
     .join("");
+
+  // 種目（sport）ごとに分けて表示（登場順）
+  const sports = [...new Set(SPORTS.teams.map((t) => t.sport || "その他"))];
+  const groups = sports
+    .map(
+      (s) => `<h3 class="sport-group-title">${esc(s)}</h3>
+        <ul class="sport-list">${cardHtml(SPORTS.teams.filter((t) => (t.sport || "その他") === s))}</ul>`
+    )
+    .join("");
+
   return `<h2 class="group-title">スポーツ成績</h2>
     <p class="sport-updated">最終更新：${esc(SPORTS.updated)}（自動更新ではありません。最新は各順位表へ）</p>
-    <ul class="sport-list">${cards}</ul>`;
+    ${groups}`;
 }
 
 // ---------- おすすめリンク ----------
