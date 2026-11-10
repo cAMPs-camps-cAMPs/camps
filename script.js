@@ -66,9 +66,7 @@ function renderMembers() {
     (m) => `<a class="member-card" href="member.html?id=${esc(m.id)}">
               ${portraitHtml(m)}
               <div class="member-card-body">
-                ${m.role ? `<p class="role">${esc(m.role)}</p>` : ""}
                 <h2>${esc(m.name)}</h2>
-                <p class="comment">${esc(m.comment)}</p>
               </div>
             </a>`
   ).join("");
