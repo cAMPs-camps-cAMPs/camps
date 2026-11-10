@@ -462,9 +462,31 @@ main {
   white-space: nowrap;
 }
 
-.player .icon-s { width: 44px; height: 44px; font-size: 1.1rem; }
-.player:hover { color: var(--accent); }
-.player:hover .icon { box-shadow: 0 0 0 2px var(--accent); }
+.player .icon-s {
+  width: 44px; height: 44px; font-size: 1.1rem;
+  box-shadow: 0 0 0 2px var(--member-color, var(--line));   /* イメージカラーの枠 */
+}
+.player { color: var(--member-color, var(--muted)); }   /* 名前もイメージカラー */
+.player:hover { filter: brightness(1.25); }
+.player:hover .icon { box-shadow: 0 0 0 2px var(--member-color, var(--accent)), 0 0 12px var(--member-color, var(--accent)); }
+
+/* gameIcon で指定した部分を切り抜いた丸アイコン */
+.icon-crop { position: relative; overflow: hidden; }
+.icon-crop img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: none;
+  height: auto;
+}
+
+/* ゲーム名：遊んでいる人のイメージカラー（複数人ならグラデーション） */
+.game-title {
+  background: var(--title-color, var(--text));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .game-card .store-link { margin-top: auto; padding-top: 14px; }
 

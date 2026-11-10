@@ -36,6 +36,25 @@ function iconHtml(member, size) {
             role="img" aria-label="${esc(member.name)}"></span>`;
 }
 
+// ゲーム一覧用の丸アイコン。data.js の gameIcon で指定した部分（ペットや小物など）を切り抜く
+// gameIcon が無い人は通常の顔アイコンを使う
+function gameIconHtml(member) {
+  const c = member.gameIcon;
+  if (!member.icon || !c) return iconHtml(member, "s");
+  const style = `width:${Number(c.zoom) * 100}%;transform:translate(-${Number(c.x)}%,-${Number(c.y)}%)`;
+  return `<span class="icon icon-s icon-crop has-image" role="img" aria-label="${esc(member.name)}">
+            <img src="${esc(member.icon)}" alt="" style="${style}" onerror="this.parentNode.classList.remove('has-image');this.remove()">
+          </span>`;
+}
+
+// ゲーム名の色：遊んでいる人のイメージカラー。複数人ならグラデーション
+function playersColorStyle(players) {
+  const colors = players.map((m) => m.color).filter(Boolean);
+  if (!colors.length) return "";
+  const bg = colors.length === 1 ? colors[0] : `linear-gradient(90deg, ${colors.join(", ")})`;
+  return ` style="--title-color:${esc(bg)}"`;
+}
+
 // 縦長の全身イラスト。画像が無いときは頭文字を大きく表示
 function portraitHtml(member) {
   return `<div class="portrait" data-initial="${initialOf(member)}">
@@ -151,11 +170,15 @@ function renderGames() {
 
 function gameCardHtml(g) {
   // メンバー一覧と同じABC順で並べる
-  const players = MEMBERS.filter((m) => (g.players || []).includes(m.id))
-    .map((m) => `<a class="player" href="member.html?id=${esc(m.id)}">${iconHtml(m, "s")}<span>${esc(m.name)}</span></a>`)
+  const members = MEMBERS.filter((m) => (g.players || []).includes(m.id));
+  const players = members
+    .map(
+      (m) => `<a class="player" href="member.html?id=${esc(m.id)}"${m.color ? ` style="--member-color:${esc(m.color)}"` : ""}>
+                ${gameIconHtml(m)}<span>${esc(m.name)}</span></a>`
+    )
     .join("");
   return `<div class="card game-card">
-      <h3>${esc(g.name)}</h3>
+      <h3><span class="game-title"${playersColorStyle(members)}>${esc(g.name)}</span></h3>
       ${g.note ? `<p class="comment">${esc(g.note)}</p>` : ""}
       <div class="players">${players}</div>
       ${g.url ? `<a class="store-link" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.store || "ストアページ")} →</a>` : ""}

@@ -23,6 +23,10 @@ const SITE = {
 // icon   : images フォルダの全身イラスト（縦長）。まだ無い人は "" にしておくと頭文字で表示
 // face   : 小さい丸アイコンに切り抜く顔の位置。"横% 縦%"（0%が左・上、100%が右・下）
 //          顔がずれていたら数字を少しずつ変えて調整する
+// gameIcon: ゲーム一覧の丸アイコンに切り抜く場所。x / y は切り抜く中心（画像の左上から何%か）、
+//           zoom は拡大率（大きいほど小さい部分をアップにする）
+// color   : イメージカラー。ゲーム一覧のアイコンの枠と、ゲーム名の色に使う
+//           （遊んでいる人が複数いると、その人たちの色のグラデーションになる）
 // role    : 名前の上に出る肩書き（短く）
 // comment : カードに出るひとこと（1行くらい）
 // profile : 個人ページに出る紹介文。[ ] の中に "段落" を並べる
@@ -34,6 +38,8 @@ const MEMBERS = [
     name: "marupis",
     icon: "images/marupis.webp",
     face: "29% 39%",
+    gameIcon: { x: 70.5, y: 30, zoom: 3.6 }, // ゲーム一覧のアイコン：出目金
+    color: "#b07cff",                         // イメージカラー：紫
     role: "社長 / LoL廃人",
     comment: "表の顔は社長、裏の顔はLoL廃人。",
     profile: [
@@ -48,6 +54,8 @@ const MEMBERS = [
     name: "bubobu.",
     icon: "images/bubobu.webp",
     face: "75% 5%",
+    gameIcon: { x: 65.5, y: 18, zoom: 4.6 },  // ゲーム一覧のアイコン：ガスマスクの顔
+    color: "#ff9d42",                         // イメージカラー：オレンジ
     role: "IPIOの逆ベクトル",
     comment: "IPIOとは基本真逆。噛み合った瞬間、誰にも止められない。",
     profile: [
@@ -62,6 +70,8 @@ const MEMBERS = [
     name: "Typicalboy",
     icon: "images/typicalboy.webp",
     face: "47% 6%",
+    gameIcon: { x: 75.4, y: 37.7, zoom: 17 }, // ゲーム一覧のアイコン：目の缶バッジ
+    color: "#4d9bff",                         // イメージカラー：青
     role: "ツッコミ担当",
     comment: "全女性の世論を背負う存在。ツッコミは常に最速。",
     profile: [
@@ -76,6 +86,8 @@ const MEMBERS = [
     name: "IPIO",
     icon: "images/ipio.webp",
     face: "42% 13%",
+    gameIcon: { x: 64, y: 17.5, zoom: 5 },    // ゲーム一覧のアイコン：犬
+    color: "#ff4d5e",                         // イメージカラー：赤
     role: "bubobu.の逆ベクトル",
     comment: "bubobu.とは基本真逆。噛み合った瞬間、手がつけられない。",
     profile: [
@@ -90,6 +102,8 @@ const MEMBERS = [
     name: "Kafka",
     icon: "images/kafka.webp",
     face: "50% 25%",
+    gameIcon: { x: 88.5, y: 27.5, zoom: 4.4 }, // ゲーム一覧のアイコン：パキポディウム
+    color: "#4ade80",                          // イメージカラー：緑
     role: "まとめ役",
     comment: "みんなをまとめる頼れる存在。ただし本人がよく寝坊する。",
     profile: [
