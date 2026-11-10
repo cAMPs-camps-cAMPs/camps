@@ -202,6 +202,33 @@ function gameCardHtml(g) {
     </div>`;
 }
 
+// ---------- スポーツ成績（リンク集ページ） ----------
+function sportsHtml() {
+  if (typeof SPORTS === "undefined" || !SPORTS.teams.length) return "";
+  const formLabel = { W: "勝", D: "分", L: "敗" };
+  const cards = SPORTS.teams
+    .map(
+      (t) => `<li class="card sport-card" style="--team-color:${esc(t.color || "var(--accent)")}">
+        <p class="sport-league">${esc(t.league)}<span>${esc(t.season)}</span></p>
+        <h3>${esc(t.name)}</h3>
+        <p class="sport-rank"><strong>${esc(t.rank)}</strong>位</p>
+        <p class="sport-record">${esc(t.record)}</p>
+        ${
+          (t.form || []).length
+            ? `<p class="sport-form" aria-label="直近${t.form.length}試合">${t.form
+                .map((f) => `<span class="form-${esc(f)}">${esc(formLabel[f] || f)}</span>`)
+                .join("")}<small>直近${t.form.length}試合（左が古い）</small></p>`
+            : ""
+        }
+        ${t.url ? `<a class="store-link" href="${esc(t.url)}" target="_blank" rel="noopener">順位表を見る →</a>` : ""}
+      </li>`
+    )
+    .join("");
+  return `<h2 class="group-title">スポーツ成績</h2>
+    <p class="sport-updated">最終更新：${esc(SPORTS.updated)}（自動更新ではありません。最新は各順位表へ）</p>
+    <ul class="sport-list">${cards}</ul>`;
+}
+
 // ---------- おすすめリンク ----------
 function renderLinks() {
   const box = document.getElementById("link-list");
@@ -224,7 +251,7 @@ function renderLinks() {
   // カテゴリ名の登場順にまとめる
   const categories = [...new Set(LINKS.map((l) => l.category))];
 
-  box.innerHTML = memberLinksHtml + categories
+  box.innerHTML = memberLinksHtml + sportsHtml() + categories
     .map((cat) => {
       const items = LINKS.filter((l) => l.category === cat)
         .map((l) => {

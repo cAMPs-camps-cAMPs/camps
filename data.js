@@ -144,6 +144,69 @@ const GAMES = [
   { name: "Heavenly Bodies", url: "https://store.steampowered.com/app/1138850/", store: "Steam", status: "playing", players: ["typicalboy", "kafka", "ipio", "bubobu"] },
 ];
 
+// ---------- スポーツ成績（リンク集ページに表示） ----------
+// 自動では更新されないので、更新するときは数字と updated（更新日）を書き換える
+// rank   : 順位（数字）
+// record : 成績の文字
+// form   : 直近の試合結果（古い順）。"W"=勝ち "D"=引き分け "L"=負け。無ければ [] でOK
+// color  : チームカラー
+// url    : 最新の順位表のページ
+const SPORTS = {
+  updated: "2026年11月11日",
+  teams: [
+    {
+      name: "読売ジャイアンツ",
+      league: "NPB セ・リーグ",
+      season: "2026年 公式戦（全日程終了）",
+      rank: 2,
+      record: "143試合 76勝64敗3分 勝率.543（首位と2.5差）",
+      form: [],
+      color: "#f97709",
+      url: "https://npb.jp/bis/2026/stats/std_c.html",
+    },
+    {
+      name: "阪神タイガース",
+      league: "NPB セ・リーグ",
+      season: "2026年 公式戦（全日程終了）",
+      rank: 1,
+      record: "143試合 79勝62敗2分 勝率.560",
+      form: [],
+      color: "#ffd400",
+      url: "https://npb.jp/bis/2026/stats/std_c.html",
+    },
+    {
+      name: "マンチェスター・ユナイテッド",
+      league: "プレミアリーグ",
+      season: "2026-27シーズン（第10節終了時点）",
+      rank: 18,
+      record: "10試合 1勝5分4敗 勝点8 得失点差-5",
+      form: ["D", "D", "D", "L", "L", "D"],
+      color: "#da291c",
+      url: "https://www.premierleague.com/tables",
+    },
+    {
+      name: "マンチェスター・シティ",
+      league: "プレミアリーグ",
+      season: "2026-27シーズン（第10節終了時点）",
+      rank: 3,
+      record: "10試合 7勝0分3敗 勝点21 得失点差+8",
+      form: ["W", "W", "W", "L", "L", "L"],
+      color: "#6cabdd",
+      url: "https://www.premierleague.com/tables",
+    },
+    {
+      name: "チェルシー",
+      league: "プレミアリーグ",
+      season: "2026-27シーズン（第10節終了時点）",
+      rank: 5,
+      record: "10試合 5勝1分4敗 勝点16 得失点差+3",
+      form: ["L", "W", "W", "L", "W", "L"],
+      color: "#2f6fdf",
+      url: "https://www.premierleague.com/tables",
+    },
+  ],
+};
+
 // ---------- おすすめリンク ----------
 // category : 見出しになるカテゴリ名。同じ名前のものがまとめて表示される
 // by       : おすすめした人の id（空でもOK）
