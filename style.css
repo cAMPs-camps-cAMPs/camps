@@ -385,6 +385,8 @@ main {
   border-left: 4px solid var(--accent);
 }
 
+.profile-text p { margin: 0 0 12px; }
+
 /* スマホなど幅が狭いときは縦に並べる */
 @media (max-width: 720px) {
   .profile { grid-template-columns: 1fr; gap: 24px; }
@@ -419,14 +421,47 @@ main {
 .link-buttons a:hover { background: var(--accent); color: var(--bg); }
 
 /* ---------- ゲーム一覧 ---------- */
-.game-card h3 { margin: 0; font-size: 1.1rem; }
+.game-card h3 { margin: 0; font-size: 1.1rem; line-height: 1.4; }
+#game-list .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+.game-card { display: flex; flex-direction: column; }
 
 .players {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
+  gap: 10px 12px;
+  margin-top: 16px;
 }
+
+/* アイコンの下に名前を小さく表示 */
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 64px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-decoration: none;
+  text-align: center;
+}
+
+.player span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player .icon-s { width: 44px; height: 44px; font-size: 1.1rem; }
+.player:hover { color: var(--accent); }
+.player:hover .icon { box-shadow: 0 0 0 2px var(--accent); }
+
+.game-card .store-link { margin-top: auto; padding-top: 14px; }
+
+/* 個人ページのゲーム名（リンク付き） */
+.tags a { color: var(--text); text-decoration: none; }
+.tags a:hover { color: var(--accent); }
 
 .store-link {
   display: inline-block;

@@ -88,8 +88,16 @@ function renderMember() {
 
   document.title = `${m.name} | ${SITE.name}`;
 
-  const gamesHtml = m.games.length
-    ? `<ul class="tags">${m.games.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>`
+  // GAMES の players にこの人の id が入っているゲームを集める
+  const myGames = GAMES.filter((g) => (g.players || []).includes(m.id));
+  const gamesHtml = myGames.length
+    ? `<ul class="tags">${myGames
+        .map((g) =>
+          g.url
+            ? `<li><a href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.name)}</a></li>`
+            : `<li>${esc(g.name)}</li>`
+        )
+        .join("")}</ul>`
     : emptyHtml("準備中");
 
   const linksHtml = m.links.length
@@ -106,6 +114,11 @@ function renderMember() {
         <h1>${esc(m.name)}</h1>
         <p class="comment">${esc(m.comment)}</p>
       </div>
+      ${(m.profile || []).length
+        ? `<section class="profile-section profile-text"><h2>プロフィール</h2>${m.profile
+            .map((p) => `<p>${esc(p)}</p>`)
+            .join("")}</section>`
+        : ""}
       <section class="profile-section"><h2>よく遊ぶゲーム</h2>${gamesHtml}</section>
       <section class="profile-section"><h2>好きなもの</h2>${
         m.likes ? `<p>${esc(m.likes)}</p>` : emptyHtml("準備中")
@@ -139,16 +152,15 @@ function renderGames() {
 }
 
 function gameCardHtml(g) {
-  const players = (g.players || [])
-    .map(findMember)
-    .filter(Boolean)
-    .map((m) => `<a href="member.html?id=${esc(m.id)}" title="${esc(m.name)}">${iconHtml(m, "s")}</a>`)
+  // メンバー一覧と同じABC順で並べる
+  const players = MEMBERS.filter((m) => (g.players || []).includes(m.id))
+    .map((m) => `<a class="player" href="member.html?id=${esc(m.id)}">${iconHtml(m, "s")}<span>${esc(m.name)}</span></a>`)
     .join("");
   return `<div class="card game-card">
       <h3>${esc(g.name)}</h3>
       ${g.note ? `<p class="comment">${esc(g.note)}</p>` : ""}
       <div class="players">${players}</div>
-      ${g.url ? `<a class="store-link" href="${esc(g.url)}" target="_blank" rel="noopener">ストアページ →</a>` : ""}
+      ${g.url ? `<a class="store-link" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(g.store || "ストアページ")} →</a>` : ""}
     </div>`;
 }
 
