@@ -1,14 +1,18 @@
 /* ============================================================
    色はここでまとめて管理（変数）。色を変えたいときはここだけ直す
+   チームロゴに合わせて「黒地 × 水色 × 紫」、差し色にオレンジ
    ============================================================ */
 :root {
-  --bg: #121110;        /* 背景（黒） */
-  --card: #1d1b18;      /* カードの背景 */
-  --card-hover: #26231f;
-  --line: #34302a;      /* 線・枠 */
-  --cream: #f1e6c8;     /* イメージカラー（クリーム） */
-  --text: #f6f1e4;      /* 本文の文字 */
-  --muted: #a39b8a;     /* 薄い文字 */
+  --bg: #07090d;          /* 背景（黒） */
+  --card: #0f131b;        /* カードの背景 */
+  --card-hover: #151b27;
+  --line: #1e2633;        /* 線・枠 */
+  --accent: #3fe3ec;      /* メインカラー（ロゴの水色） */
+  --accent2: #8b6cff;     /* サブカラー（ロゴの紫） */
+  --sun: #ff9d42;         /* 差し色（ロゴの太陽のオレンジ） */
+  --gradient: linear-gradient(90deg, var(--accent), var(--accent2));
+  --text: #e9f5f7;        /* 本文の文字 */
+  --muted: #8796a6;       /* 薄い文字 */
 }
 
 * { box-sizing: border-box; }
@@ -29,6 +33,14 @@ main {
   padding: 0 20px 60px;
 }
 
+/* 文字をロゴのようなグラデーションにする */
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* ---------- ヘッダー ---------- */
 .site-header {
   display: flex;
@@ -36,16 +48,33 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 8px 24px;
-  padding: 16px 24px;
+  padding: 12px 24px;
   border-bottom: 1px solid var(--line);
+  background: rgba(7, 9, 13, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
 .logo {
-  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.logo span {
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: var(--cream);
-  text-decoration: none;
+  color: var(--accent);
 }
 
 .site-header nav {
@@ -64,8 +93,8 @@ main {
 .site-header nav a:hover { color: var(--text); }
 
 .site-header nav a.current {
-  color: var(--cream);
-  border-bottom-color: var(--cream);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 /* ---------- 見出し ---------- */
@@ -73,7 +102,13 @@ main {
   margin: 48px 0 32px;
   font-size: 2.2rem;
   letter-spacing: 0.08em;
-  color: var(--cream);
+}
+
+.page-title strong {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .page-title span {
@@ -87,31 +122,33 @@ main {
   margin: 40px 0 16px;
   font-size: 1.1rem;
   padding-left: 12px;
-  border-left: 4px solid var(--cream);
+  border-left: 4px solid var(--accent);
 }
 
 /* ---------- トップページ ---------- */
 .hero {
   text-align: center;
-  padding: 90px 0 70px;
+  padding: 48px 0 40px;
+  background: radial-gradient(circle at 50% 40%, rgba(63, 227, 236, 0.12), transparent 60%);
 }
 
-.hero h1 {
-  margin: 0;
-  font-size: clamp(3rem, 12vw, 6rem);
-  line-height: 1.1;
-  letter-spacing: 0.06em;
-  color: var(--cream);
+.hero-logo {
+  width: min(360px, 80vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(63, 227, 236, 0.2);
 }
 
-.hero p { color: var(--muted); }
+.hero p { color: var(--muted); margin-top: 12px; }
 
 .block { margin-top: 56px; }
 
 .block-title {
   font-size: 0.95rem;
   letter-spacing: 0.2em;
-  color: var(--cream);
+  color: var(--accent);
 }
 
 .mini-members {
@@ -130,10 +167,10 @@ main {
   font-size: 0.85rem;
 }
 
-.mini-member:hover { color: var(--cream); }
+.mini-member:hover { color: var(--accent); }
 
 .more { margin-top: 24px; }
-.more a { color: var(--cream); }
+.more a { color: var(--accent); }
 
 /* ---------- カード共通 ---------- */
 .grid {
@@ -150,24 +187,14 @@ main {
   transition: transform 0.2s, background 0.2s, border-color 0.2s;
 }
 
-a.card { text-decoration: none; }
-
-a.card:hover {
-  transform: translateY(-4px);
-  background: var(--card-hover);
-  border-color: var(--cream);
-}
-
-.member-card { text-align: center; }
-.member-card h2 { margin: 12px 0 0; font-size: 1.2rem; }
-
 .role {
   display: inline-block;
-  margin: 6px 0 0;
+  margin: 0;
   padding: 0 10px;
   font-size: 0.75rem;
+  font-weight: 700;
   color: var(--bg);
-  background: var(--cream);
+  background: var(--gradient);
   border-radius: 999px;
 }
 
@@ -175,58 +202,143 @@ a.card:hover {
 
 .empty { color: var(--muted); }
 
-/* ---------- アイコン（画像が無いときは頭文字を表示） ---------- */
+/* ---------- 小さい丸アイコン（全身イラストから顔を切り抜き） ---------- */
 .icon {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   border-radius: 50%;
-  overflow: hidden;
-  background: var(--cream);
+  background-color: var(--accent);
+  background-repeat: no-repeat;
+  background-size: 250% auto;   /* 拡大して顔を大きく見せる */
   color: var(--bg);
   font-weight: 800;
+  box-shadow: 0 0 0 2px var(--line);
 }
 
-.icon::before { content: attr(data-initial); }
+.icon:not(.has-image)::before { content: attr(data-initial); }
+.icon.has-image { background-color: var(--card); }
 
-.icon img {
+.icon-s { width: 32px; height: 32px; font-size: 0.9rem; }
+.mini-member .icon-s { width: 72px; height: 72px; font-size: 1.6rem; }
+
+/* ---------- 縦長の全身イラスト ---------- */
+.portrait {
+  position: relative;
+  aspect-ratio: 1 / 1.6;
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(139, 108, 255, 0.35), transparent 70%),
+    var(--card);
+}
+
+/* 画像が無いときは頭文字を大きく表示 */
+.portrait::before {
+  content: attr(data-initial);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.portrait img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s;
 }
 
-.icon-s { width: 32px; height: 32px; font-size: 0.9rem; }
-.icon-m { width: 110px; height: 110px; font-size: 2.6rem; }
-.icon-l { width: 160px; height: 160px; font-size: 4rem; }
-.mini-member .icon-s { width: 64px; height: 64px; font-size: 1.6rem; }
+/* ---------- メンバー一覧（縦長カード） ---------- */
+#member-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.member-card {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.member-card .portrait { border-radius: 0; }
+
+.member-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(63, 227, 236, 0.25);
+}
+
+.member-card:hover .portrait img { transform: scale(1.05); }
+
+/* 名前は画像の下部に重ねる */
+.member-card-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 48px 16px 16px;
+  background: linear-gradient(transparent, rgba(7, 9, 13, 0.95) 55%);
+}
+
+.member-card-body h2 {
+  margin: 4px 0 0;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+}
+
+.member-card-body .comment {
+  margin: 0;
+  font-size: 0.85rem;
+}
 
 /* ---------- 個人ページ ---------- */
-.profile { margin-top: 48px; }
+.profile {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: minmax(240px, 380px) 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.profile-visual .portrait {
+  aspect-ratio: 1 / 2;          /* 全身がすべて見える比率 */
+  border: 1px solid var(--line);
+}
+
+.profile-visual .portrait img { object-fit: contain; }
 
 .profile-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 32px;
-  padding-bottom: 32px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
 }
 
 .profile-head h1 {
-  margin: 0;
-  font-size: 2.4rem;
-  color: var(--cream);
+  margin: 8px 0 0;
+  font-size: 2.6rem;
+  line-height: 1.2;
 }
 
 .profile-section h2 {
   font-size: 1rem;
   margin: 32px 0 12px;
   padding-left: 12px;
-  border-left: 4px solid var(--cream);
+  border-left: 4px solid var(--accent);
+}
+
+/* スマホなど幅が狭いときは縦に並べる */
+@media (max-width: 720px) {
+  .profile { grid-template-columns: 1fr; gap: 24px; }
+  .profile-visual { max-width: 320px; margin: 0 auto; width: 100%; }
 }
 
 .tags, .link-buttons {
@@ -248,13 +360,13 @@ a.card:hover {
 .link-buttons a {
   display: inline-block;
   padding: 6px 18px;
-  border: 1px solid var(--cream);
+  border: 1px solid var(--accent);
   border-radius: 999px;
-  color: var(--cream);
+  color: var(--accent);
   text-decoration: none;
 }
 
-.link-buttons a:hover { background: var(--cream); color: var(--bg); }
+.link-buttons a:hover { background: var(--accent); color: var(--bg); }
 
 /* ---------- ゲーム一覧 ---------- */
 .game-card h3 { margin: 0; font-size: 1.1rem; }
@@ -269,7 +381,7 @@ a.card:hover {
 .store-link {
   display: inline-block;
   margin-top: 14px;
-  color: var(--cream);
+  color: var(--accent);
   font-size: 0.9rem;
 }
 
@@ -285,7 +397,7 @@ a.card:hover {
 
 .link-item > a {
   font-weight: 700;
-  color: var(--cream);
+  color: var(--accent);
 }
 
 .by {

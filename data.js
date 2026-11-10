@@ -20,14 +20,17 @@ const SITE = {
 
 // ---------- メンバー ----------
 // id     : 個人ページのURLに使う名前（英小文字・数字のみ）。例 member.html?id=kafka
-// icon   : images フォルダの画像。無い場合は頭文字の丸アイコンになる
+// icon   : images フォルダの全身イラスト（縦長）。まだ無い人は "" にしておくと頭文字で表示
+// face   : 小さい丸アイコンに切り抜く顔の位置。"横% 縦%"（0%が左・上、100%が右・下）
+//          顔がずれていたら数字を少しずつ変えて調整する
 // games  : よく遊ぶゲーム名のリスト
 // links  : 外部リンク。label が表示名、url がリンク先
 const MEMBERS = [
   {
     id: "marupis",
     name: "marupis",
-    icon: "images/marupis.png",
+    icon: "images/marupis.webp",
+    face: "29% 39%",
     role: "",
     comment: "ひとこと",
     games: [],
@@ -37,7 +40,8 @@ const MEMBERS = [
   {
     id: "bubobu",
     name: "bubobu.",
-    icon: "images/bubobu.png",
+    icon: "",
+    face: "50% 20%",
     role: "",
     comment: "ひとこと",
     games: [],
@@ -47,7 +51,8 @@ const MEMBERS = [
   {
     id: "typicalboy",
     name: "Typicalboy",
-    icon: "images/typicalboy.png",
+    icon: "images/typicalboy.webp",
+    face: "47% 6%",
     role: "",
     comment: "ひとこと",
     games: [],
@@ -55,9 +60,10 @@ const MEMBERS = [
     links: [],
   },
   {
-    id: "opipi",
-    name: "おぴぴ",
-    icon: "images/opipi.png",
+    id: "ipio",
+    name: "IPIO",
+    icon: "",
+    face: "50% 20%",
     role: "",
     comment: "ひとこと",
     games: [],
@@ -67,7 +73,8 @@ const MEMBERS = [
   {
     id: "kafka",
     name: "Kafka",
-    icon: "images/kafka.png",
+    icon: "images/kafka.webp",
+    face: "50% 25%",
     role: "",
     comment: "ひとこと",
     games: [],

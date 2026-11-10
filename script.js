@@ -12,19 +12,35 @@ function esc(text) {
     .replace(/"/g, "&quot;");
 }
 
+// メンバーを名前のABC順（大文字・小文字は区別しない）に並べ替える
+// → data.js にはどの順番で書いても、表示は常にABC順になる
+MEMBERS.sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
+
 // id からメンバーを探す
 function findMember(id) {
   return MEMBERS.find((m) => m.id === id);
 }
 
-// アイコン画像。画像が無いときは頭文字の丸アイコンに切り替える
+// 頭文字（画像が無いときの代わり）
+function initialOf(member) {
+  return esc(member.name.charAt(0).toUpperCase());
+}
+
+// 小さい丸アイコン。全身イラストから顔の部分（data.js の face）を切り抜いて表示
 function iconHtml(member, size) {
-  const initial = esc(member.name.charAt(0).toUpperCase());
-  return `
-    <span class="icon icon-${size}" data-initial="${initial}">
-      <img src="${esc(member.icon)}" alt="${esc(member.name)}のアイコン"
-           onerror="this.remove()">
-    </span>`;
+  const style = member.icon
+    ? `style="background-image:url('${esc(member.icon)}');background-position:${esc(member.face || "50% 20%")}"`
+    : "";
+  return `<span class="icon icon-${size}${member.icon ? " has-image" : ""}"
+            data-initial="${initialOf(member)}" ${style}
+            role="img" aria-label="${esc(member.name)}"></span>`;
+}
+
+// 縦長の全身イラスト。画像が無いときは頭文字を大きく表示
+function portraitHtml(member) {
+  return `<div class="portrait" data-initial="${initialOf(member)}">
+      ${member.icon ? `<img src="${esc(member.icon)}" alt="${esc(member.name)}のイラスト" onerror="this.remove()">` : ""}
+    </div>`;
 }
 
 // 「準備中」表示
@@ -47,11 +63,13 @@ function renderTop() {
 // ---------- メンバー一覧 ----------
 function renderMembers() {
   document.getElementById("member-list").innerHTML = MEMBERS.map(
-    (m) => `<a class="card member-card" href="member.html?id=${esc(m.id)}">
-              ${iconHtml(m, "m")}
-              <h2>${esc(m.name)}</h2>
-              ${m.role ? `<p class="role">${esc(m.role)}</p>` : ""}
-              <p class="comment">${esc(m.comment)}</p>
+    (m) => `<a class="member-card" href="member.html?id=${esc(m.id)}">
+              ${portraitHtml(m)}
+              <div class="member-card-body">
+                ${m.role ? `<p class="role">${esc(m.role)}</p>` : ""}
+                <h2>${esc(m.name)}</h2>
+                <p class="comment">${esc(m.comment)}</p>
+              </div>
             </a>`
   ).join("");
 }
@@ -81,19 +99,19 @@ function renderMember() {
     : emptyHtml("準備中");
 
   box.innerHTML = `
-    <div class="profile-head">
-      ${iconHtml(m, "l")}
-      <div>
-        <h1>${esc(m.name)}</h1>
+    <div class="profile-visual">${portraitHtml(m)}</div>
+    <div class="profile-info">
+      <div class="profile-head">
         ${m.role ? `<p class="role">${esc(m.role)}</p>` : ""}
+        <h1>${esc(m.name)}</h1>
         <p class="comment">${esc(m.comment)}</p>
       </div>
+      <section class="profile-section"><h2>よく遊ぶゲーム</h2>${gamesHtml}</section>
+      <section class="profile-section"><h2>好きなもの</h2>${
+        m.likes ? `<p>${esc(m.likes)}</p>` : emptyHtml("準備中")
+      }</section>
+      <section class="profile-section"><h2>リンク</h2>${linksHtml}</section>
     </div>
-    <section class="profile-section"><h2>よく遊ぶゲーム</h2>${gamesHtml}</section>
-    <section class="profile-section"><h2>好きなもの</h2>${
-      m.likes ? `<p>${esc(m.likes)}</p>` : emptyHtml("準備中")
-    }</section>
-    <section class="profile-section"><h2>リンク</h2>${linksHtml}</section>
   `;
 }
 
