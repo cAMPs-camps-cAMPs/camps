@@ -217,7 +217,9 @@ main {
   font-size: 0.85rem;
 }
 
-.mini-member:hover { color: var(--accent); }
+.mini-member { color: var(--member-color, var(--text)); }
+.mini-member .icon { box-shadow: 0 0 0 3px var(--member-color, var(--line)); transition: box-shadow 0.2s; }
+.mini-member:hover .icon { box-shadow: 0 0 0 3px var(--member-color, var(--accent)), 0 0 18px var(--member-color, var(--accent)); }
 
 .more { margin-top: 24px; }
 .more a { color: var(--accent); }
@@ -325,10 +327,21 @@ main {
 
 .member-card .portrait { border-radius: 0; }
 
+/* カード下端にイメージカラーのライン */
+.member-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--member-color, var(--gradient));
+}
+
 .member-card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 0 24px rgba(63, 227, 236, 0.25);
+  border-color: var(--member-color, var(--accent));
+  box-shadow: 0 0 24px color-mix(in srgb, var(--member-color, var(--accent)) 45%, transparent);
 }
 
 .member-card:hover .portrait img { transform: scale(1.05); }
@@ -344,6 +357,7 @@ main {
 }
 
 .member-card-body h2 {
+  color: var(--member-color, var(--text));
   margin: 4px 0 0;
   font-size: 1.3rem;
   letter-spacing: 0.03em;
@@ -365,8 +379,17 @@ main {
 
 .profile-visual .portrait {
   aspect-ratio: 1 / 2;          /* 全身がすべて見える比率 */
-  border: 1px solid var(--line);
+  border: 2px solid var(--member-color, var(--line));
+  box-shadow: 0 0 32px color-mix(in srgb, var(--member-color, var(--accent2)) 35%, transparent);
 }
+
+/* 個人ページはその人のイメージカラーで統一 */
+.profile .role { background: var(--member-color, var(--gradient)); }
+.profile-head h1 { color: var(--member-color, var(--text)); }
+.profile .link-buttons a { border-color: var(--member-color, var(--accent)); color: var(--member-color, var(--accent)); }
+.profile .link-buttons a:hover { background: var(--member-color, var(--accent)); color: var(--bg); }
+.profile .tags a:hover { color: var(--member-color, var(--accent)); }
+.profile .tags li:hover { border-color: var(--member-color, var(--accent)); }
 
 /* 画像があるときは、画像本来の縦横比のまま全身を表示（余白を出さない） */
 .profile-visual .portrait:has(img) { aspect-ratio: auto; }
@@ -391,7 +414,7 @@ main {
   font-size: 1rem;
   margin: 32px 0 12px;
   padding-left: 12px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--member-color, var(--accent));
 }
 
 .profile-text p { margin: 0 0 12px; }

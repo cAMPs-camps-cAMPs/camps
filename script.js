@@ -26,6 +26,11 @@ function initialOf(member) {
   return esc(member.name.charAt(0).toUpperCase());
 }
 
+// イメージカラーを CSS に渡すための style 属性（色の使い方は style.css 側で決める）
+function colorAttr(member) {
+  return member.color ? ` style="--member-color:${esc(member.color)}"` : "";
+}
+
 // 小さい丸アイコン。全身イラストから顔の部分（data.js の face）を切り抜いて表示
 function iconHtml(member, size) {
   const style = member.icon
@@ -73,7 +78,7 @@ function renderTop() {
     SITE.about.map((line) => `<p>${esc(line)}</p>`).join("");
 
   document.getElementById("top-members").innerHTML = MEMBERS.map(
-    (m) => `<a class="mini-member" href="member.html?id=${esc(m.id)}">
+    (m) => `<a class="mini-member" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
               ${iconHtml(m, "s")}<span>${esc(m.name)}</span>
             </a>`
   ).join("");
@@ -82,7 +87,7 @@ function renderTop() {
 // ---------- メンバー一覧 ----------
 function renderMembers() {
   document.getElementById("member-list").innerHTML = MEMBERS.map(
-    (m) => `<a class="member-card" href="member.html?id=${esc(m.id)}">
+    (m) => `<a class="member-card" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
               ${portraitHtml(m)}
               <div class="member-card-body">
                 <h2>${esc(m.name)}</h2>
@@ -104,6 +109,7 @@ function renderMember() {
   }
 
   document.title = `${m.name} | ${SITE.name}`;
+  if (m.color) box.style.setProperty("--member-color", m.color);
 
   // GAMES の players にこの人の id が入っているゲームを集める
   const myGames = GAMES.filter((g) => (g.players || []).includes(m.id));
@@ -173,7 +179,7 @@ function gameCardHtml(g) {
   const members = MEMBERS.filter((m) => (g.players || []).includes(m.id));
   const players = members
     .map(
-      (m) => `<a class="player" href="member.html?id=${esc(m.id)}"${m.color ? ` style="--member-color:${esc(m.color)}"` : ""}>
+      (m) => `<a class="player" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
                 ${gameIconHtml(m)}<span>${esc(m.name)}</span></a>`
     )
     .join("");
