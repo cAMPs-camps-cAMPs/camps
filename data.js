@@ -110,20 +110,21 @@ const MEMBERS = [
 // store   : リンク先の名前（ボタンに表示）
 // 書き方の例：
 // { name: "ゲーム名", url: "https://store.steampowered.com/app/xxxx/", store: "Steam", status: "playing", players: ["kafka", "ipio"], note: "ひとこと" },
+// 並び順：ここに書いた順番でゲームページに表示される（今はビッグタイトル順）
 const GAMES = [
-  { name: "Fortnite", url: "https://www.fortnite.com/", store: "公式サイト", status: "playing", players: ["ipio", "kafka"] },
-  { name: "Terraria", url: "https://store.steampowered.com/app/105600/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy", "marupis"] },
   { name: "League of Legends", url: "https://www.leagueoflegends.com/", store: "公式サイト", status: "playing", players: ["ipio", "kafka", "typicalboy", "marupis"] },
-  { name: "Apex Legends", url: "https://store.steampowered.com/app/1172470/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy", "bubobu"] },
+  { name: "Fortnite", url: "https://www.fortnite.com/", store: "公式サイト", status: "playing", players: ["ipio", "kafka"] },
   { name: "VALORANT", url: "https://playvalorant.com/", store: "公式サイト", status: "playing", players: ["ipio", "kafka", "typicalboy", "bubobu", "marupis"] },
+  { name: "Apex Legends", url: "https://store.steampowered.com/app/1172470/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy", "bubobu"] },
   { name: "Monster Hunter Wilds", url: "https://store.steampowered.com/app/2246340/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy", "bubobu"] },
+  { name: "Terraria", url: "https://store.steampowered.com/app/105600/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy", "marupis"] },
   { name: "Street Fighter 6", url: "https://store.steampowered.com/app/1364780/", store: "Steam", status: "playing", players: ["kafka"] },
-  { name: "Path of Exile 2", url: "https://store.steampowered.com/app/2694490/", store: "Steam", status: "playing", players: ["kafka", "typicalboy", "ipio"] },
-  { name: "ContractVille", url: "https://store.steampowered.com/app/2698780/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy"] },
-  { name: "PEAK", url: "https://store.steampowered.com/app/3527290/", store: "Steam", status: "playing", players: ["kafka", "typicalboy", "ipio"] },
   { name: "METAL GEAR SOLID Δ: SNAKE EATER", url: "https://store.steampowered.com/app/2417610/", store: "Steam", status: "playing", players: ["kafka"] },
+  { name: "Path of Exile 2", url: "https://store.steampowered.com/app/2694490/", store: "Steam", status: "playing", players: ["kafka", "typicalboy", "ipio"] },
+  { name: "PEAK", url: "https://store.steampowered.com/app/3527290/", store: "Steam", status: "playing", players: ["kafka", "typicalboy", "ipio"] },
   { name: "Shadowverse: Worlds Beyond", url: "https://store.steampowered.com/app/2584990/", store: "Steam", status: "playing", players: ["typicalboy"] },
   { name: "Windrose", url: "https://store.steampowered.com/app/3041230/", store: "Steam", status: "playing", players: ["typicalboy", "kafka", "ipio"] },
+  { name: "ContractVille", url: "https://store.steampowered.com/app/2698780/", store: "Steam", status: "playing", players: ["ipio", "kafka", "typicalboy"] },
   { name: "Heavenly Bodies", url: "https://store.steampowered.com/app/1138850/", store: "Steam", status: "playing", players: ["typicalboy", "kafka", "ipio", "bubobu"] },
 ];
 
