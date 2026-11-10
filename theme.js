@@ -13,5 +13,6 @@
   window.setTheme = function (theme) {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem(KEY, theme); } catch (e) {}
+    document.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
   };
 })();

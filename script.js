@@ -236,6 +236,69 @@ document.querySelectorAll(".site-catchcopy").forEach((el) => (el.textContent = S
 if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
+// ---------- ライトモードのロゴ ----------
+// ロゴ画像の黒い背景を、ブラウザ上で透明に変換して使う（暗い色ほど透明になる）
+// 変換できない環境（ファイルを直接開いたときなど）では、元の黒いロゴのまま
+const LOGO_SRC = "images/logo.webp";
+let lightLogoUrl = null;
+
+function makeLightLogo() {
+  if (lightLogoUrl) return Promise.resolve(lightLogoUrl);
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const p = data.data;
+        for (let i = 0; i < p.length; i += 4) {
+          const max = Math.max(p[i], p[i + 1], p[i + 2]);
+          // 暗い部分（背景のざらつき）は完全に透明、明るいほど不透明に。
+          // 少し不透明寄りのカーブにして、色が薄くなりすぎないようにする
+          const t = Math.max(0, (max - 45) / 210);
+          const a = Math.min(1, Math.pow(t, 0.6));
+          if (a > 0) {
+            p[i] = Math.min(255, p[i] / a);
+            p[i + 1] = Math.min(255, p[i + 1] / a);
+            p[i + 2] = Math.min(255, p[i + 2] / a);
+          }
+          p[i + 3] = Math.round(a * 255);
+        }
+        ctx.putImageData(data, 0, 0);
+        canvas.toBlob((blob) => {
+          if (!blob) return reject();
+          lightLogoUrl = URL.createObjectURL(blob);
+          resolve(lightLogoUrl);
+        });
+      } catch (e) {
+        reject(e);
+      }
+    };
+    img.onerror = reject;
+    img.src = LOGO_SRC;
+  });
+}
+
+function applyLogoForTheme() {
+  const logos = document.querySelectorAll(".hero-logo, .logo img");
+  if (document.documentElement.dataset.theme === "light") {
+    makeLightLogo()
+      .then((url) => {
+        if (document.documentElement.dataset.theme === "light") logos.forEach((el) => (el.src = url));
+      })
+      .catch(() => {});
+  } else {
+    logos.forEach((el) => (el.src = LOGO_SRC));
+  }
+}
+
+applyLogoForTheme();
+document.addEventListener("themechange", applyLogoForTheme);
+
 // <body data-page="..."> の値に応じて、そのページ用の表示を実行
 const renderers = {
   top: renderTop,
