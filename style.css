@@ -266,6 +266,25 @@ main {
 .mini-member .icon { box-shadow: 0 0 0 3px var(--member-color, var(--line)); transition: box-shadow 0.2s; }
 .mini-member:hover .icon { box-shadow: 0 0 0 3px var(--member-color, var(--accent)), 0 0 18px var(--member-color, var(--accent)); }
 
+/* 状態（行方不明など）があるメンバーは、アイコンを色あせさせてタグを付ける */
+.mini-icon { position: relative; display: inline-block; line-height: 0; }
+.mini-member.has-status .icon { filter: grayscale(1) brightness(0.7); opacity: 0.75; }
+.status-tag {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%) rotate(-8deg);
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: #fff;
+  background: #d8343f;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
 .more { margin-top: 24px; }
 .more a { color: var(--accent); }
 
@@ -496,6 +515,31 @@ main {
 }
 
 .link-buttons a:hover { background: var(--accent); color: var(--bg); }
+
+/* ---------- リンク集：メンバーのリンク ---------- */
+.member-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.member-link { padding: 18px; border-top: 3px solid var(--member-color, var(--accent)); }
+.member-link-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--member-color, var(--text));
+}
+.member-link-name .icon-s { width: 40px; height: 40px; box-shadow: 0 0 0 2px var(--member-color, var(--line)); }
+.member-link .link-buttons a { border-color: var(--member-color, var(--accent)); color: var(--member-color, var(--accent)); }
+.member-link .link-buttons a:hover { background: var(--member-color, var(--accent)); color: var(--bg); }
+.member-link .empty { margin: 0; }
+:root[data-theme="light"] :is(.member-link-name span, .member-link .link-buttons a) { filter: brightness(0.78) saturate(1.2); }
 
 /* ---------- ゲーム一覧 ---------- */
 .game-card h3 { margin: 0; font-size: 1.1rem; line-height: 1.4; }

@@ -83,8 +83,9 @@ function renderTop() {
     SITE.about.map((line) => `<p>${esc(line)}</p>`).join("");
 
   document.getElementById("top-members").innerHTML = MEMBERS.map(
-    (m) => `<a class="mini-member" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
-              ${iconHtml(m, "s")}<span>${esc(m.name)}</span>
+    (m) => `<a class="mini-member${m.status ? " has-status" : ""}" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
+              <span class="mini-icon">${iconHtml(m, "s")}${m.status ? `<span class="status-tag">${esc(m.status)}</span>` : ""}</span>
+              <span>${esc(m.name)}</span>
             </a>`
   ).join("");
 }
@@ -204,15 +205,26 @@ function gameCardHtml(g) {
 // ---------- おすすめリンク ----------
 function renderLinks() {
   const box = document.getElementById("link-list");
-  if (!LINKS.length) {
-    box.innerHTML = emptyHtml("準備中");
-    return;
-  }
+
+  // メンバーごとのリンク（data.js の各メンバーの links から自動で作る）
+  const memberLinksHtml = `<h2 class="group-title">メンバーのリンク</h2>
+    <ul class="member-links">${MEMBERS.map(
+      (m) => `<li class="card member-link"${colorAttr(m)}>
+        <a class="member-link-name" href="member.html?id=${esc(m.id)}">${iconHtml(m, "s")}<span>${esc(m.name)}</span></a>
+        ${
+          m.links.length
+            ? `<ul class="link-buttons">${m.links
+                .map((l) => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`)
+                .join("")}</ul>`
+            : `<p class="empty">${esc(m.status || "準備中")}</p>`
+        }
+      </li>`
+    ).join("")}</ul>`;
 
   // カテゴリ名の登場順にまとめる
   const categories = [...new Set(LINKS.map((l) => l.category))];
 
-  box.innerHTML = categories
+  box.innerHTML = memberLinksHtml + categories
     .map((cat) => {
       const items = LINKS.filter((l) => l.category === cat)
         .map((l) => {

@@ -11,10 +11,9 @@
 // ---------- サイト全体 ----------
 const SITE = {
   name: "cAMPs",
-  catchcopy: "ゆるく集まってゲームする、5人のDiscordサーバー",
+  catchcopy: "朝から夜までゆるく集まってゲームする、5人のDiscordサーバー",
   about: [
-    "ここにサーバーの紹介文を書きます。",
-    "どんなメンバーが、いつごろ、何をして遊んでいるかなど。",
+    "朝から夜までゆるく集まってゲームする、5人のDiscordサーバー。",
   ],
 };
 
@@ -31,7 +30,8 @@ const SITE = {
 // comment : カードに出るひとこと（1行くらい）
 // profile : 個人ページに出る紹介文。[ ] の中に "段落" を並べる
 // ※よく遊ぶゲームは、下の GAMES の players から自動で表示される
-// links  : 外部リンク。label が表示名、url がリンク先
+// links  : 外部リンク。label が表示名、url がリンク先。リンク集ページにも自動で載る
+// status : 状態（例 "行方不明"）。トップページのアイコンに表示される。無い人は書かなくてOK
 const MEMBERS = [
   {
     id: "marupis",
@@ -47,7 +47,7 @@ const MEMBERS = [
       "経営判断のスピードは、フラッシュを押す指より速いとか遅いとか。",
     ],
     likes: "",
-    links: [],
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/%E3%81%BE%E3%82%8B%E3%81%B4%E3%81%99-JP1" }], // まるぴす#JP1
   },
   {
     id: "bubobu",
@@ -63,7 +63,8 @@ const MEMBERS = [
       "しかし二人のベクトルがぴたりと揃ったとき、cAMPs最強の合体技が発動する。発動条件は今も解明されていない。",
     ],
     likes: "",
-    links: [],
+    links: [], // OP.GG（Nettr222#7154）は戦績が見つからないため未登録
+    status: "行方不明", // トップページなどに出る状態。不要になったらこの行を消す
   },
   {
     id: "typicalboy",
@@ -79,7 +80,7 @@ const MEMBERS = [
       "ボケが発生すると0.1秒でツッコミが飛んでくる、cAMPsの良識（たぶん）。",
     ],
     likes: "",
-    links: [],
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/Typicalboy-2526" }],
   },
   {
     id: "ipio",
@@ -95,7 +96,7 @@ const MEMBERS = [
       "ただし二人のベクトルが一致したとき、その破壊力は計測不能。敵チームは祈るしかない。",
     ],
     likes: "",
-    links: [],
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/ipio-9493" }],
   },
   {
     id: "kafka",
@@ -112,6 +113,7 @@ const MEMBERS = [
     ],
     likes: "",
     links: [
+      { label: "OP.GG", url: "https://op.gg/lol/summoners/jp/kanicowboy-000" },
       // 書き方の例： { label: "X", url: "https://x.com/xxxx" },
     ],
   },
