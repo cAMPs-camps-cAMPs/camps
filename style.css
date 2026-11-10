@@ -298,6 +298,9 @@ main {
   opacity: 0.6;
 }
 
+/* 画像があるときは頭文字を出さない */
+.portrait:has(img)::before { display: none; }
+
 .portrait img {
   position: absolute;
   inset: 0;
@@ -365,7 +368,13 @@ main {
   border: 1px solid var(--line);
 }
 
-.profile-visual .portrait img { object-fit: contain; }
+/* 画像があるときは、画像本来の縦横比のまま全身を表示（余白を出さない） */
+.profile-visual .portrait:has(img) { aspect-ratio: auto; }
+.profile-visual .portrait img {
+  position: static;
+  display: block;
+  height: auto;
+}
 
 .profile-head {
   padding-bottom: 24px;
