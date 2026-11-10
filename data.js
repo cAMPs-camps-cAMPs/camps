@@ -74,8 +74,8 @@ const MEMBERS = [
   {
     id: "ipio",
     name: "IPIO",
-    icon: "",
-    face: "50% 20%",
+    icon: "images/ipio.webp",
+    face: "42% 13%",
     role: "bubobu.の逆ベクトル",
     comment: "bubobu.とは基本真逆。噛み合った瞬間、手がつけられない。",
     profile: [
