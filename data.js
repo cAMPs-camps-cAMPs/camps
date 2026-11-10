@@ -47,7 +47,7 @@ const MEMBERS = [
       "経営判断のスピードは、フラッシュを押す指より速いとか遅いとか。",
     ],
     likes: "",
-    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/%E3%81%BE%E3%82%8B%E3%81%B4%E3%81%99-JP1" }], // まるぴす#JP1
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/%E3%81%BE%E3%82%8B%E3%81%B4%E3%81%99-JP1" }, { label: "DeepLoL", url: "https://www.deeplol.gg/summoner/jp/%E3%81%BE%E3%82%8B%E3%81%B4%E3%81%99-JP1" }], // まるぴす#JP1
   },
   {
     id: "bubobu",
@@ -80,7 +80,7 @@ const MEMBERS = [
       "ボケが発生すると0.1秒でツッコミが飛んでくる、cAMPsの良識（たぶん）。",
     ],
     likes: "",
-    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/Typicalboy-2526" }],
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/Typicalboy-2526" }, { label: "DeepLoL", url: "https://www.deeplol.gg/summoner/jp/Typicalboy-2526" }],
   },
   {
     id: "ipio",
@@ -96,7 +96,7 @@ const MEMBERS = [
       "ただし二人のベクトルが一致したとき、その破壊力は計測不能。敵チームは祈るしかない。",
     ],
     likes: "",
-    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/ipio-9493" }],
+    links: [{ label: "OP.GG", url: "https://op.gg/lol/summoners/jp/ipio-9493" }, { label: "DeepLoL", url: "https://www.deeplol.gg/summoner/jp/ipio-9493" }],
   },
   {
     id: "kafka",
@@ -113,7 +113,7 @@ const MEMBERS = [
     ],
     likes: "",
     links: [
-      { label: "OP.GG", url: "https://op.gg/lol/summoners/jp/kanicowboy-000" },
+      { label: "OP.GG", url: "https://op.gg/lol/summoners/jp/kanicowboy-000" }, { label: "DeepLoL", url: "https://www.deeplol.gg/summoner/jp/kanicowboy-000" },
       // 書き方の例： { label: "X", url: "https://x.com/xxxx" },
     ],
   },
