@@ -13,6 +13,30 @@
   --gradient: linear-gradient(90deg, var(--accent), var(--accent2));
   --text: #e9f5f7;        /* 本文の文字 */
   --muted: #8796a6;       /* 薄い文字 */
+  --header-bg: rgba(7, 9, 13, 0.9);
+}
+
+/* ライトモード（昼）の色。theme.js が <html data-theme="light"> にしたときに使われる */
+:root[data-theme="light"] {
+  --bg: #eef3f8;
+  --card: #ffffff;
+  --card-hover: #f5f9fc;
+  --line: #d3dce6;
+  --accent: #0a9fae;
+  --accent2: #6b4ee6;
+  --text: #152230;
+  --muted: #5d6d7e;
+  --header-bg: rgba(238, 243, 248, 0.9);
+}
+
+/* モードが切り替わるときは色をふわっと変える */
+body, .site-header, .card, .member-card, .tags li {
+  transition: background-color 0.8s, color 0.8s, border-color 0.8s;
+}
+
+/* ライトモードでは、メンバーカラーの文字を少し濃くして読みやすくする */
+:root[data-theme="light"] :is(.player span, .mini-member span, .profile-head h1, .game-title) {
+  filter: brightness(0.78) saturate(1.2);
 }
 
 * { box-sizing: border-box; }
@@ -50,7 +74,7 @@ main {
   gap: 8px 24px;
   padding: 12px 24px;
   border-bottom: 1px solid var(--line);
-  background: rgba(7, 9, 13, 0.9);
+  background: var(--header-bg);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -160,16 +184,84 @@ main {
 
 .hero h1 { margin: 0; }
 
-.hero-logo {
-  width: min(600px, 92vw);
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  /* 四角い黒背景の縁をぼかして、ページの背景になじませる */
-  -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 71%);
-  mask-image: radial-gradient(circle, #000 58%, transparent 71%);
+/* ロゴ＋太陽と月をまとめた箱（いっしょにふわふわ浮く） */
+.hero-sky {
+  --size: min(600px, 92vw);     /* ロゴの大きさ */
+  position: relative;
+  width: var(--size);
+  aspect-ratio: 1;
   animation: float 6s ease-in-out infinite alternate;
 }
+
+/* 四角い黒背景の縁をぼかして、ページの背景になじませる */
+.hero-logo-box {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 71%);
+  mask-image: radial-gradient(circle, #000 58%, transparent 71%);
+}
+
+.hero-logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 元の画像のアーチ・太陽・月を隠して、描き直したアーチを重ねる */
+.sky-arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---------- 動く太陽と月 ----------
+   ロゴの中心のまわりを回る。--dial（回転角）をモードで変えると、アーチに沿って動く
+   昼：太陽が左上・月は右下に沈む ／ 夜：太陽が左下に沈み・月が右上に昇る */
+@property --dial {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.hero-sky { --dial: 0deg; transition: --dial 1.6s cubic-bezier(0.6, 0, 0.3, 1); }
+:root[data-theme="dark"] .hero-sky { --dial: -82deg; }
+
+.sky-body {
+  --pos: calc(var(--angle) + var(--dial));
+  position: absolute;
+  left: 50%;
+  top: 48.75%;                  /* アーチの円の中心 */
+  width: var(--body-size);
+  aspect-ratio: 1;
+  margin: calc(var(--body-size) / -2) 0 0 calc(var(--body-size) / -2);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform: rotate(var(--pos)) translateY(calc(var(--size) * -0.375)) rotate(calc(var(--pos) * -1));
+  transition: opacity 1.2s, filter 0.3s;
+}
+.sky-body svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.sky-sun  { --angle: -49deg; --body-size: calc(var(--size) * 0.3);  filter: drop-shadow(0 0 14px rgba(255, 150, 50, 0.8)); }
+.sky-moon { --angle: 131deg; --body-size: calc(var(--size) * 0.19); filter: drop-shadow(0 0 12px rgba(139, 108, 255, 0.9)); }
+
+.sky-sun:hover  { filter: drop-shadow(0 0 24px rgba(255, 170, 60, 1)); }
+.sky-moon:hover { filter: drop-shadow(0 0 22px rgba(170, 140, 255, 1)); }
+
+/* 沈んでいる方は見えなくしてクリックもできないようにする */
+:root[data-theme="dark"]  .sky-sun,
+:root[data-theme="light"] .sky-moon { opacity: 0; pointer-events: none; }
+
+/* 太陽の光線はゆっくり回り、月のまわりの星はまたたく */
+.sun-rays { animation: spin 40s linear infinite; transform-origin: 0 0; }
+.moon-stars path { animation: twinkle 2.4s ease-in-out infinite alternate; }
+.moon-stars path:nth-child(2) { animation-delay: 1.2s; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
 
 .hero p {
   color: var(--text);
@@ -190,7 +282,8 @@ main {
 
 /* 動きを減らす設定にしている人にはアニメーションを止める */
 @media (prefers-reduced-motion: reduce) {
-  .hero::before, .hero-logo { animation: none; }
+  .hero::before, .hero-sky, .sun-rays, .moon-stars path { animation: none; }
+  .hero-sky { transition: none; }
 }
 
 .block { margin-top: 56px; }
