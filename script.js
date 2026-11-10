@@ -74,10 +74,6 @@ function emptyHtml(message) {
 
 // ---------- トップページ ----------
 function renderTop() {
-  // 太陽をクリック → 夜（ダーク）、月をクリック → 昼（ライト）
-  document.querySelector(".sky-sun")?.addEventListener("click", () => setTheme("dark"));
-  document.querySelector(".sky-moon")?.addEventListener("click", () => setTheme("light"));
-
   document.getElementById("site-about").innerHTML =
     SITE.about.map((line) => `<p>${esc(line)}</p>`).join("");
 

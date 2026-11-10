@@ -8,7 +8,6 @@
   <title></title>
   <link rel="icon" href="images/logo.webp">
   <link rel="stylesheet" href="style.css">
-  <script src="theme.js"></script>
 </head>
 <body data-page="top">
   <header class="site-header">
@@ -23,71 +22,7 @@
 
   <main>
     <section class="hero">
-      <!-- ロゴ＋動く太陽と月。太陽か月をクリックするとライト／ダークが切り替わる -->
-      <div class="hero-sky">
-        <div class="hero-logo-box">
-          <h1><img class="hero-logo" src="images/logo.webp" alt="cAMPs"></h1>
-          <!-- 画像に描き込まれている元のアーチ・太陽・月を黒で隠し、アーチだけ描き直す -->
-          <svg class="sky-arc" viewBox="0 0 1600 1600" aria-hidden="true">
-            <defs>
-              <linearGradient id="arc-grad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#ff8a3d"/>
-                <stop offset="0.18" stop-color="#ffb36b"/>
-                <stop offset="0.45" stop-color="#3fe3ec"/>
-                <stop offset="0.75" stop-color="#6f7bff"/>
-                <stop offset="1" stop-color="#8b6cff"/>
-              </linearGradient>
-              <filter id="arc-cover" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter>
-              <filter id="arc-glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter>
-            </defs>
-            <path class="arc-cover" d="M203 717 A600 600 0 0 1 1397 717" stroke="#050505" stroke-width="400" fill="none" filter="url(#arc-cover)"/>
-            <path d="M213 655 A600 600 0 0 1 1387 655" stroke="url(#arc-grad)" stroke-width="44" fill="none" opacity="0.55" filter="url(#arc-glow)"/>
-            <path d="M213 655 A600 600 0 0 1 1387 655" stroke="url(#arc-grad)" stroke-width="20" fill="none" stroke-linecap="round"/>
-            <path d="M290 680 A530 530 0 0 1 1310 680" stroke="#3fe3ec" stroke-width="5" fill="none" opacity="0.6"/>
-          </svg>
-        </div>
-
-        <button type="button" class="sky-body sky-sun" aria-label="夜（ダークモード）にする" title="クリックで夜にする">
-          <svg viewBox="-50 -50 100 100" aria-hidden="true">
-            <defs>
-              <radialGradient id="sun-core" cx="40%" cy="35%" r="70%">
-                <stop offset="0" stop-color="#fff3c4"/>
-                <stop offset="0.45" stop-color="#ffb347"/>
-                <stop offset="1" stop-color="#ff7a1a"/>
-              </radialGradient>
-            </defs>
-            <g class="sun-rays" fill="#ffa63d">
-              <polygon points="-3,-30 3,-30 0,-48"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(30)"/>
-              <polygon points="-3,-30 3,-30 0,-48" transform="rotate(60)"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(90)"/>
-              <polygon points="-3,-30 3,-30 0,-48" transform="rotate(120)"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(150)"/>
-              <polygon points="-3,-30 3,-30 0,-48" transform="rotate(180)"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(210)"/>
-              <polygon points="-3,-30 3,-30 0,-48" transform="rotate(240)"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(270)"/>
-              <polygon points="-3,-30 3,-30 0,-48" transform="rotate(300)"/><polygon points="-3,-30 3,-30 0,-40" transform="rotate(330)"/>
-            </g>
-            <circle r="24" fill="url(#sun-core)"/>
-          </svg>
-        </button>
-
-        <button type="button" class="sky-body sky-moon" aria-label="昼（ライトモード）にする" title="クリックで昼にする">
-          <svg viewBox="-50 -50 100 100" aria-hidden="true">
-            <defs>
-              <linearGradient id="moon-fill" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0" stop-color="#d9ccff"/>
-                <stop offset="1" stop-color="#8b6cff"/>
-              </linearGradient>
-              <mask id="moon-cut">
-                <circle r="30" fill="#fff"/>
-                <circle cx="13" cy="-11" r="25" fill="#000"/>
-              </mask>
-            </defs>
-            <circle r="30" fill="url(#moon-fill)" mask="url(#moon-cut)"/>
-            <g class="moon-stars" fill="#cbbcff">
-              <path d="M34 -36 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z"/>
-              <path d="M40 8 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/>
-            </g>
-          </svg>
-        </button>
-      </div>
+      <h1><img class="hero-logo" src="images/logo.webp" alt="cAMPs"></h1>
       <p class="site-catchcopy"></p>
     </section>
 
