@@ -137,7 +137,7 @@ function renderGames() {
   }
 
   const groups = [
-    { key: "playing", title: "いま遊んでいる" },
+    { key: "playing", title: "ゲームタイトル" },
     { key: "past", title: "前に遊んでいた" },
   ];
 
