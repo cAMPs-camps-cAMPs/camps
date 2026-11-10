@@ -84,8 +84,8 @@ function renderTop() {
 
   document.getElementById("top-members").innerHTML = MEMBERS.map(
     (m) => `<a class="mini-member${m.status ? " has-status" : ""}" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
-              <span class="mini-icon">${iconHtml(m, "s")}${m.status ? `<span class="status-tag">${esc(m.status)}</span>` : ""}</span>
-              <span>${esc(m.name)}</span>
+              <span class="mini-icon">${gameIconHtml(m)}${m.status ? `<span class="status-tag">${esc(m.status)}</span>` : ""}</span>
+              <span class="m-name">${esc(m.name)}</span>
             </a>`
   ).join("");
 }
@@ -191,7 +191,7 @@ function gameCardHtml(g) {
   const players = members
     .map(
       (m) => `<a class="player" href="member.html?id=${esc(m.id)}"${colorAttr(m)}>
-                ${gameIconHtml(m)}<span>${esc(m.name)}</span></a>`
+                ${gameIconHtml(m)}<span class="m-name">${esc(m.name)}</span></a>`
     )
     .join("");
   return `<div class="card game-card">
@@ -247,7 +247,7 @@ function renderLinks() {
   const memberLinksHtml = `<h2 class="group-title">メンバーのリンク</h2>
     <ul class="member-links">${MEMBERS.map(
       (m) => `<li class="card member-link"${colorAttr(m)}>
-        <a class="member-link-name" href="member.html?id=${esc(m.id)}">${iconHtml(m, "s")}<span>${esc(m.name)}</span></a>
+        <a class="member-link-name" href="member.html?id=${esc(m.id)}">${iconHtml(m, "s")}<span class="m-name">${esc(m.name)}</span></a>
         ${
           m.links.length
             ? `<ul class="link-buttons">${m.links

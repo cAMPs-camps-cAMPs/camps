@@ -35,7 +35,7 @@ body, .site-header, .card, .member-card, .tags li {
 }
 
 /* ライトモードでは、メンバーカラーの文字を少し濃くして読みやすくする */
-:root[data-theme="light"] :is(.player span, .mini-member span, .profile-head h1, .game-title) {
+:root[data-theme="light"] :is(.m-name, .profile-head h1, .game-title) {
   filter: brightness(0.78) saturate(1.2);
 }
 
@@ -539,7 +539,7 @@ main {
 .member-link .link-buttons a { border-color: var(--member-color, var(--accent)); color: var(--member-color, var(--accent)); }
 .member-link .link-buttons a:hover { background: var(--member-color, var(--accent)); color: var(--bg); }
 .member-link .empty { margin: 0; }
-:root[data-theme="light"] :is(.member-link-name span, .member-link .link-buttons a) { filter: brightness(0.78) saturate(1.2); }
+:root[data-theme="light"] .member-link .link-buttons a { filter: brightness(0.78) saturate(1.2); }
 
 /* ---------- リンク集：スポーツ成績 ---------- */
 .sport-updated { margin: -8px 0 16px; font-size: 0.85rem; color: var(--muted); }
