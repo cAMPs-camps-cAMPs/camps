@@ -286,12 +286,12 @@ if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
 // ---------- モードごとのロゴ（トップの大きいロゴ） ----------
-// ダーク：月のロゴ／ライト：太陽のロゴ（白背景）／カーボン：太陽と月のロゴ（カーボン背景）
+// ダーク：月のロゴ／ライト：太陽のロゴ（白背景）／カーボン：太陽と月のロゴ（真っ黒背景）
 // ※ 左上のヘッダーの小さいロゴ：ライトは白背景の太陽と月、それ以外は真っ黒背景の太陽と月
 const LOGOS = {
   dark: "images/logo-dark.png",
   light: "images/logo-light.webp",
-  carbon: "images/logo-carbon.png",
+  carbon: "images/logo-black.png",
 };
 const HEADER_LOGOS = {
   light: "images/logo-white.webp",

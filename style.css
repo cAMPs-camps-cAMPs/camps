@@ -35,13 +35,13 @@
   --header-bg: rgba(0, 0, 0, 0.9);
 }
 
-/* カーボンモード（朝から夜まで）：背景は真っ黒。カーボン柄はトップのロゴの中だけ */
+/* カーボンモード（朝から夜まで）：ダーク（真っ黒）と見分けがつくよう、背景はダークグレー */
 :root[data-theme="carbon"] {
-  --bg: #000;
-  --card: rgba(14, 15, 18, 0.95);
-  --card-hover: rgba(20, 22, 26, 0.97);
-  --line: #1d2027;
-  --header-bg: rgba(0, 0, 0, 0.9);
+  --bg: #1b1c1f;
+  --card: #24262a;
+  --card-hover: #2b2d32;
+  --line: #34373e;
+  --header-bg: rgba(27, 28, 31, 0.92);
 }
 
 /* ダーク・カーボンでは、ロゴの後ろの光を消す（光で周りが明るくなり、ロゴの四角が浮いて見えるため） */
@@ -249,7 +249,7 @@ main {
   mask-size: 100% 100%;
 }
 
-/* カーボンのロゴはカーボン柄の背景があるので、縁を強めにぼかして真っ黒の背景に溶かす */
+/* カーボンでは、真っ黒のロゴがダークグレーの背景に自然になじむよう、縁を強めにぼかす */
 :root[data-theme="carbon"] .hero-logo {
   -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><filter id='b' x='-30%' y='-30%' width='160%' height='160%'><feGaussianBlur stdDeviation='3.5'/></filter><rect x='4' y='4' width='92' height='92' rx='22' fill='black' filter='url(%23b)'/></svg>");
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><filter id='b' x='-30%' y='-30%' width='160%' height='160%'><feGaussianBlur stdDeviation='3.5'/></filter><rect x='4' y='4' width='92' height='92' rx='22' fill='black' filter='url(%23b)'/></svg>");
