@@ -285,17 +285,18 @@ document.querySelectorAll(".site-catchcopy").forEach((el) => (el.textContent = S
 if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
-// ---------- モードごとのロゴ ----------
-// ダーク：月のロゴ／ライト：太陽のロゴ（白背景）／カーボン：太陽と月が両方入ったロゴ
+// ---------- モードごとのロゴ（トップの大きいロゴ） ----------
+// ダーク：月のロゴ／ライト：太陽のロゴ（白背景）／カーボン：太陽と月のロゴ（カーボン背景）
+// ※ 左上のヘッダーの小さいロゴは、どのモードでも真っ黒背景の太陽と月（logo-black.png）で固定
 const LOGOS = {
-  dark: "images/logo-dark.webp",
+  dark: "images/logo-dark.png",
   light: "images/logo-light.webp",
-  carbon: "images/logo.webp",
+  carbon: "images/logo-carbon.png",
 };
 
 function applyLogoForTheme() {
-  const src = LOGOS[document.documentElement.dataset.theme] || LOGOS.dark;
-  document.querySelectorAll(".hero-logo, .logo img").forEach((el) => (el.src = src));
+  const src = LOGOS[document.documentElement.dataset.theme] || LOGOS.carbon;
+  document.querySelectorAll(".hero-logo").forEach((el) => (el.src = src));
 }
 
 applyLogoForTheme();
