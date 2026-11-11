@@ -286,66 +286,14 @@ if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
 // ---------- モードごとのロゴ ----------
-// ダーク：月のロゴ（logo-dark.webp）をそのまま表示
-// ライト：太陽のロゴ（logo-light.webp）の黒い背景を、ブラウザ上で白に変換して表示
-//         変換できない環境（ファイルを直接開いたときなど）では、黒背景の太陽ロゴのまま
+// ダーク：月のロゴ（logo-dark.webp）／ライト：太陽のロゴ・白背景（logo-light.webp）
 // ※ 太陽と月が両方入った logo.webp は、使う場面を後で決めるため今は表示していない
 const LOGO_DARK = "images/logo-dark.webp";
 const LOGO_LIGHT = "images/logo-light.webp";
-let lightLogoUrl = null;
-
-function makeLightLogo() {
-  if (lightLogoUrl) return Promise.resolve(lightLogoUrl);
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const p = data.data;
-        for (let i = 0; i < p.length; i += 4) {
-          const max = Math.max(p[i], p[i + 1], p[i + 2]);
-          // 暗い部分（背景のざらつき）は完全に透明、明るいほど不透明に。
-          // 少し不透明寄りのカーブにして、色が薄くなりすぎないようにする
-          const t = Math.max(0, (max - 45) / 210);
-          const a = Math.min(1, Math.pow(t, 0.6));
-          // 黒を抜いた色を、白い背景の上に重ねる
-          for (let c = 0; c < 3; c++) {
-            const color = a > 0 ? Math.min(255, p[i + c] / a) : 255;
-            p[i + c] = Math.round(color * a + 255 * (1 - a));
-          }
-          p[i + 3] = 255;
-        }
-        ctx.putImageData(data, 0, 0);
-        canvas.toBlob((blob) => {
-          if (!blob) return reject();
-          lightLogoUrl = URL.createObjectURL(blob);
-          resolve(lightLogoUrl);
-        });
-      } catch (e) {
-        reject(e);
-      }
-    };
-    img.onerror = reject;
-    img.src = LOGO_LIGHT;
-  });
-}
 
 function applyLogoForTheme() {
-  const logos = document.querySelectorAll(".hero-logo, .logo img");
-  if (document.documentElement.dataset.theme === "light") {
-    makeLightLogo()
-      .then((url) => {
-        if (document.documentElement.dataset.theme === "light") logos.forEach((el) => (el.src = url));
-      })
-      .catch(() => logos.forEach((el) => (el.src = LOGO_LIGHT)));
-  } else {
-    logos.forEach((el) => (el.src = LOGO_DARK));
-  }
+  const src = document.documentElement.dataset.theme === "light" ? LOGO_LIGHT : LOGO_DARK;
+  document.querySelectorAll(".hero-logo, .logo img").forEach((el) => (el.src = src));
 }
 
 applyLogoForTheme();

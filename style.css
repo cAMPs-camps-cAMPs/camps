@@ -184,8 +184,6 @@ main {
 
 .hero h1 { margin: 0; }
 
-/* ライトモードのロゴ（黒い背景を白にしたもの）は、色を少しだけ濃くする */
-:root[data-theme="light"] .hero-logo { filter: saturate(1.3); }
 
 /* ロゴの左半分・右半分を、見えないボタンで覆う */
 .hero-logo-wrap { position: relative; }
