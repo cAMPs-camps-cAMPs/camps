@@ -31,24 +31,25 @@
 
 /* カーボンモード（朝から夜まで）の色。背景はカーボン柄（下の body 指定） */
 :root[data-theme="carbon"] {
-  --bg: #141416;
-  --card: rgba(22, 24, 28, 0.92);
-  --card-hover: rgba(30, 33, 38, 0.95);
-  --line: #2c3038;
-  --header-bg: rgba(16, 17, 20, 0.92);
+  --bg: #060607;
+  --card: rgba(12, 13, 16, 0.92);
+  --card-hover: rgba(18, 20, 24, 0.95);
+  --line: #1d2027;
+  --header-bg: rgba(7, 7, 9, 0.92);
 }
 
-/* カーボン柄：細かい斜めの織り目を CSS の模様で描く */
+/* カーボン柄：細かい斜めの織り目を CSS の模様で描く（ロゴの黒になじむ暗さ）
+   目の細かさは background-size（今は 8px）。数字を大きくすると粗くなる */
 :root[data-theme="carbon"] body {
   background:
-    linear-gradient(27deg, #18181a 5px, transparent 5px) 0 5px,
-    linear-gradient(207deg, #18181a 5px, transparent 5px) 10px 0,
-    linear-gradient(27deg, #252528 5px, transparent 5px) 0 10px,
-    linear-gradient(207deg, #252528 5px, transparent 5px) 10px 5px,
-    linear-gradient(90deg, #1e1e21 10px, transparent 10px),
-    linear-gradient(#202023 25%, #1c1c1f 25%, #1c1c1f 50%, transparent 50%, transparent 75%, #28282b 75%, #28282b);
-  background-color: #141416;
-  background-size: 20px 20px;
+    linear-gradient(27deg, #0a0a0b 2px, transparent 2px) 0 2px,
+    linear-gradient(207deg, #0a0a0b 2px, transparent 2px) 4px 0,
+    linear-gradient(27deg, #121214 2px, transparent 2px) 0 4px,
+    linear-gradient(207deg, #121214 2px, transparent 2px) 4px 2px,
+    linear-gradient(90deg, #0d0d0f 4px, transparent 4px),
+    linear-gradient(#0f0f11 25%, #0b0b0c 25%, #0b0b0c 50%, transparent 50%, transparent 75%, #151517 75%, #151517);
+  background-color: #060607;
+  background-size: 8px 8px;
   background-attachment: fixed;
 }
 
