@@ -206,9 +206,16 @@ main {
   height: auto;
   display: block;
   margin: 0 auto;
-  /* 四角い黒背景の縁をぼかして、ページの背景になじませる */
-  -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 71%);
-  mask-image: radial-gradient(circle, #000 58%, transparent 71%);
+  /* 四角い背景の四辺の端だけをぼかして、ページの背景になじませる
+     （丸くぼかすと左右の「C」「S」が欠けるため、文字にかからない範囲だけ） */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 97%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 97%, transparent);
+  mask-composite: intersect;
   animation: float 6s ease-in-out infinite alternate;
 }
 
