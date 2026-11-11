@@ -29,6 +29,29 @@
   --header-bg: rgba(238, 243, 248, 0.9);
 }
 
+/* カーボンモード（朝から夜まで）の色。背景はカーボン柄（下の body 指定） */
+:root[data-theme="carbon"] {
+  --bg: #141416;
+  --card: rgba(22, 24, 28, 0.92);
+  --card-hover: rgba(30, 33, 38, 0.95);
+  --line: #2c3038;
+  --header-bg: rgba(16, 17, 20, 0.92);
+}
+
+/* カーボン柄：細かい斜めの織り目を CSS の模様で描く */
+:root[data-theme="carbon"] body {
+  background:
+    linear-gradient(27deg, #18181a 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #18181a 5px, transparent 5px) 10px 0,
+    linear-gradient(27deg, #252528 5px, transparent 5px) 0 10px,
+    linear-gradient(207deg, #252528 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1e1e21 10px, transparent 10px),
+    linear-gradient(#202023 25%, #1c1c1f 25%, #1c1c1f 50%, transparent 50%, transparent 75%, #28282b 75%, #28282b);
+  background-color: #141416;
+  background-size: 20px 20px;
+  background-attachment: fixed;
+}
+
 /* モードが切り替わるときは色をふわっと変える */
 body, .site-header, .card, .member-card, .tags li {
   transition: background-color 0.6s, color 0.6s, border-color 0.6s;
@@ -199,6 +222,21 @@ main {
 }
 .theme-day   { left: 0; }
 .theme-night { right: 0; }
+/* テントのあたり（左右のボタンより上に重ねる） */
+.theme-tent {
+  position: absolute;
+  left: 27%;
+  top: 26%;
+  width: 46%;
+  height: 38%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 1;
+}
+.theme-tent:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+
 .theme-half:focus-visible { outline: 2px solid var(--accent); outline-offset: -8px; border-radius: 50%; }
 
 .hero-logo {

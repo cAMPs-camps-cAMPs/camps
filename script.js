@@ -286,13 +286,15 @@ if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
 // ---------- モードごとのロゴ ----------
-// ダーク：月のロゴ（logo-dark.webp）／ライト：太陽のロゴ・白背景（logo-light.webp）
-// ※ 太陽と月が両方入った logo.webp は、使う場面を後で決めるため今は表示していない
-const LOGO_DARK = "images/logo-dark.webp";
-const LOGO_LIGHT = "images/logo-light.webp";
+// ダーク：月のロゴ／ライト：太陽のロゴ（白背景）／カーボン：太陽と月が両方入ったロゴ
+const LOGOS = {
+  dark: "images/logo-dark.webp",
+  light: "images/logo-light.webp",
+  carbon: "images/logo.webp",
+};
 
 function applyLogoForTheme() {
-  const src = document.documentElement.dataset.theme === "light" ? LOGO_LIGHT : LOGO_DARK;
+  const src = LOGOS[document.documentElement.dataset.theme] || LOGOS.dark;
   document.querySelectorAll(".hero-logo, .logo img").forEach((el) => (el.src = src));
 }
 
