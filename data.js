@@ -70,8 +70,8 @@ const MEMBERS = [
     id: "typicalboy",
     name: "Typicalboy",
     icon: "images/typicalboy.webp",
-    face: "47% 6%",
-    gameIcon: { x: 75.4, y: 37.7, zoom: 17 }, // ゲーム一覧のアイコン：目の缶バッジ
+    face: "50% 8%",
+    gameIcon: { x: 84, y: 22, zoom: 4.5 },   // ゲーム一覧のアイコン：右上のマスクマン
     color: "#4d9bff",                         // イメージカラー：青
     role: "ツッコミ担当",
     comment: "全女性の世論を背負う存在。ツッコミは常に最速。",
