@@ -29,29 +29,24 @@
   --header-bg: rgba(238, 243, 248, 0.9);
 }
 
-/* カーボンモード（朝から夜まで）の色。背景はカーボン柄（下の body 指定） */
-:root[data-theme="carbon"] {
-  --bg: #060607;
-  --card: rgba(12, 13, 16, 0.92);
-  --card-hover: rgba(18, 20, 24, 0.95);
-  --line: #1d2027;
-  --header-bg: rgba(7, 7, 9, 0.92);
+/* ダークモード：ページの背景をロゴと同じ真っ黒にして、ロゴが浮かないようにする */
+:root[data-theme="dark"] {
+  --bg: #000;
+  --header-bg: rgba(0, 0, 0, 0.9);
 }
 
-/* カーボン柄：細かい斜めの織り目を CSS の模様で描く（ロゴの黒になじむ暗さ）
-   目の細かさは background-size（今は 8px）。数字を大きくすると粗くなる */
-:root[data-theme="carbon"] body {
-  background:
-    linear-gradient(27deg, #0a0a0b 2px, transparent 2px) 0 2px,
-    linear-gradient(207deg, #0a0a0b 2px, transparent 2px) 4px 0,
-    linear-gradient(27deg, #121214 2px, transparent 2px) 0 4px,
-    linear-gradient(207deg, #121214 2px, transparent 2px) 4px 2px,
-    linear-gradient(90deg, #0d0d0f 4px, transparent 4px),
-    linear-gradient(#0f0f11 25%, #0b0b0c 25%, #0b0b0c 50%, transparent 50%, transparent 75%, #151517 75%, #151517);
-  background-color: #060607;
-  background-size: 8px 8px;
-  background-attachment: fixed;
+/* カーボンモード（朝から夜まで）：背景は真っ黒。カーボン柄はトップのロゴの中だけ */
+:root[data-theme="carbon"] {
+  --bg: #000;
+  --card: rgba(14, 15, 18, 0.95);
+  --card-hover: rgba(20, 22, 26, 0.97);
+  --line: #1d2027;
+  --header-bg: rgba(0, 0, 0, 0.9);
 }
+
+/* ダーク・カーボンでは、ロゴの後ろの光を消す（光で周りが明るくなり、ロゴの四角が浮いて見えるため） */
+:root[data-theme="dark"] .hero::before,
+:root[data-theme="carbon"] .hero::before { display: none; }
 
 /* モードが切り替わるときは色をふわっと変える */
 body, .site-header, .card, .member-card, .tags li {
@@ -252,6 +247,12 @@ main {
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><filter id='b' x='-20%' y='-20%' width='140%' height='140%'><feGaussianBlur stdDeviation='1.8'/></filter><rect x='4' y='4' width='92' height='92' rx='16' fill='black' filter='url(%23b)'/></svg>");
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+}
+
+/* カーボンのロゴはカーボン柄の背景があるので、縁を強めにぼかして真っ黒の背景に溶かす */
+:root[data-theme="carbon"] .hero-logo {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><filter id='b' x='-30%' y='-30%' width='160%' height='160%'><feGaussianBlur stdDeviation='3.5'/></filter><rect x='4' y='4' width='92' height='92' rx='22' fill='black' filter='url(%23b)'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><filter id='b' x='-30%' y='-30%' width='160%' height='160%'><feGaussianBlur stdDeviation='3.5'/></filter><rect x='4' y='4' width='92' height='92' rx='22' fill='black' filter='url(%23b)'/></svg>");
   animation: float 6s ease-in-out infinite alternate;
 }
 
