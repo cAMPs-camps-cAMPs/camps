@@ -285,10 +285,13 @@ document.querySelectorAll(".site-catchcopy").forEach((el) => (el.textContent = S
 if (!document.title) document.title = SITE.name;
 else if (!document.title.includes("|")) document.title += ` | ${SITE.name}`;
 
-// ---------- ライトモードのロゴ ----------
-// ロゴ画像の黒い背景を、ブラウザ上で透明に変換して使う（暗い色ほど透明になる）
-// 変換できない環境（ファイルを直接開いたときなど）では、元の黒いロゴのまま
-const LOGO_SRC = "images/logo.webp";
+// ---------- モードごとのロゴ ----------
+// ダーク：月のロゴ（logo-dark.webp）をそのまま表示
+// ライト：太陽のロゴ（logo-light.webp）の黒い背景を、ブラウザ上で白に変換して表示
+//         変換できない環境（ファイルを直接開いたときなど）では、黒背景の太陽ロゴのまま
+// ※ 太陽と月が両方入った logo.webp は、使う場面を後で決めるため今は表示していない
+const LOGO_DARK = "images/logo-dark.webp";
+const LOGO_LIGHT = "images/logo-light.webp";
 let lightLogoUrl = null;
 
 function makeLightLogo() {
@@ -310,12 +313,12 @@ function makeLightLogo() {
           // 少し不透明寄りのカーブにして、色が薄くなりすぎないようにする
           const t = Math.max(0, (max - 45) / 210);
           const a = Math.min(1, Math.pow(t, 0.6));
-          if (a > 0) {
-            p[i] = Math.min(255, p[i] / a);
-            p[i + 1] = Math.min(255, p[i + 1] / a);
-            p[i + 2] = Math.min(255, p[i + 2] / a);
+          // 黒を抜いた色を、白い背景の上に重ねる
+          for (let c = 0; c < 3; c++) {
+            const color = a > 0 ? Math.min(255, p[i + c] / a) : 255;
+            p[i + c] = Math.round(color * a + 255 * (1 - a));
           }
-          p[i + 3] = Math.round(a * 255);
+          p[i + 3] = 255;
         }
         ctx.putImageData(data, 0, 0);
         canvas.toBlob((blob) => {
@@ -328,7 +331,7 @@ function makeLightLogo() {
       }
     };
     img.onerror = reject;
-    img.src = LOGO_SRC;
+    img.src = LOGO_LIGHT;
   });
 }
 
@@ -339,9 +342,9 @@ function applyLogoForTheme() {
       .then((url) => {
         if (document.documentElement.dataset.theme === "light") logos.forEach((el) => (el.src = url));
       })
-      .catch(() => {});
+      .catch(() => logos.forEach((el) => (el.src = LOGO_LIGHT)));
   } else {
-    logos.forEach((el) => (el.src = LOGO_SRC));
+    logos.forEach((el) => (el.src = LOGO_DARK));
   }
 }
 
